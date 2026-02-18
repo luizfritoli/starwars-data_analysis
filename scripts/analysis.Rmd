@@ -1,0 +1,49 @@
+# -- Carregando o Tidyverse e Ggcorrplot --
+```{r}
+# install.packages("tidyverse")
+library(tidyverse)
+# install.packages("ggcorrplot")
+library(ggcorrplot)
+```
+
+# -- Carregando os dados tratados --
+```{r}
+dados = read_csv("../data/clean/starwars_clean.csv")
+View(dados)
+```
+
+# -- Analisando correlação entre "altura" e "massa" --
+```{r}
+
+correl = dados %>%
+  select(altura, massa) %>%
+  cor(use="complete.obs")
+
+correl_filt = dados %>%
+  filter(massa < 1000) %>% 
+  select(altura, massa) %>%
+  cor(use="complete.obs")
+
+ggcorrplot(correl_filt,
+           lab=T,
+           lab_size = 3.5)
+
+ggcorrplot(correl,
+           lab=T,
+           lab_size = 3.5)
+```
+
+# -- Confirmando existência de correlação com gráfico de dispersão --
+```{r}
+
+dados %>%
+  ggplot(aes(x=altura, y=massa)) +
+  geom_point() + geom_smooth(method="lm")
+
+dados %>%
+  filter(massa < 1000) %>%
+  ggplot(aes(x=altura, y=massa)) +
+  geom_point() + geom_smooth(method="lm") +
+  geom_vline(xintercept=165, linetype="dotted") +
+  geom_hline(yintercept=70, linetype="dotted")
+```

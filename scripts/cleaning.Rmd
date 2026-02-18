@@ -1,0 +1,100 @@
+# -- Instalando e carregando o Tidyverse --
+```{r}
+# install.packages("tidyverse")
+library(tidyverse)
+```
+
+# -- Pegando dados crus da pasta "starwars_raw" --
+```{r}
+dados = read_csv("../data/raw/starwars_raw.csv")
+dados
+```
+
+# -- Selecionando colunas que serão trabalhadas e traduzindo nomes das colunas --
+```{r}
+dados = dados %>%
+  select(
+    nome = name, 
+    altura = height, 
+    massa = mass, 
+    cor_olho = eye_color, 
+    idade = birth_year, 
+    genero = gender, 
+    mundo_natal = homeworld, 
+    especie = species
+  )
+```
+
+# -- Analisando a coluna "altura" --
+```{r}
+class(dados$altura)
+summary(dados$altura)
+
+dados %>% 
+  ggplot(aes(y=altura)) +
+  geom_boxplot()
+```
+
+# -- Tratando NA's de "altura" --
+```{r}
+dados = dados %>%
+  mutate(
+    altura = replace_na(altura, median(altura, na.rm = TRUE))
+  )
+```
+
+# -- Analisando a coluna "massa" --
+```{r}
+summary(dados$massa)
+```
+
+# -- Analisando a coluna "cor_olho" --
+```{r}
+unique(dados$cor_olho)
+dados %>% count(cor_olho)
+``` 
+
+# -- Tratando a coluna "idade" --
+```{r}
+summary(dados$idade)
+dados = dados %>%
+  mutate(
+    idade = as.integer(idade)
+  )
+```
+
+# -- Tratando a coluna "genero" --
+```{r}
+unique(dados$genero)
+dados %>% count(genero)
+dados = dados %>%
+  mutate(
+    genero = replace_na(genero, "not specified")
+  )
+```
+
+# -- Analisando a coluna "mundo_natal"
+```{r}
+unique(dados$mundo_natal)
+dados %>% count(mundo_natal)
+```
+
+# -- Analisando a coluna "especie" --
+```{r}
+unique(dados$especie)
+dados %>% count(especie)
+```
+
+# -- Tratando a coluna "especie" --
+```{r}
+dados = dados %>%
+  mutate(
+    especie = replace_na(especie, "not specified")
+  )
+```
+
+## -- Salvando os dados tratados --
+```{r}
+write_csv(dados, "../data/clean/starwars_clean.csv")
+View(dados)
+```
