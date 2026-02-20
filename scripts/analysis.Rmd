@@ -79,3 +79,34 @@ genero %>%
     fill = "Gêneros"
   )
 ```
+
+
+# -- Analisando ocorrências de mundos natais --
+```{r}
+dados_resumidos = dados %>%
+  filter(!is.na(mundo_natal)) %>%
+  group_by(mundo_natal) %>%
+  summarise(n = n()) %>%
+  arrange(desc(n)) %>%
+  slice_max(n, n = 8)
+
+dados_resumidos %>%
+  ggplot(aes(x=reorder(mundo_natal, n), y = n, fill=mundo_natal)) +
+  geom_bar(stat="identity") +
+  scale_fill_manual(values = c(
+    "Alderaan" = "#A8D0E6",
+    "Corellia" = "#F7CCAC",
+    "Coruscant" = "#C6E2E9",
+    "Kamino" = "#F1E0AC",
+    "Kashyyyk" = "#E1BBEE",
+    "Mirial" = "#FFD5E5",
+    "Naboo" = "#E5989B",
+    "Ryloth" = "#D4E09B",
+    "Tanooine" = "#DBE3E5"
+  )) + theme_minimal() + labs(
+    title = "Mundo natais com maior frequência",
+    x = "Mundo",
+    y = "Frequência",
+    fill = "Mundos"
+  )
+```

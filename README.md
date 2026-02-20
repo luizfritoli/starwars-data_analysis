@@ -39,11 +39,11 @@ Neste repositório, estão sendo feitos tratamento e análise da tabela
    
 5. **Valores NA que não foram modificados**
 
-   `Massa`: 28 valores faltantes de 87 no total é aproximadamente 32%, um número
+   - `Massa`: 28 valores faltantes de 87 no total é aproximadamente 32%, um número
     significativo e que enviesaria a análise.
-   `Idade`: 44 valores faltantes de 87 é mais de 50% do total, seria irreal
+   - `Idade`: 44 valores faltantes de 87 é mais de 50% do total, seria irreal
     trabalhar com esse número.
-   `Mundo natal`: Não havia muitos valores NA, mas com a variedade de valores
+   - `Mundo natal`: Não havia muitos valores NA, mas com a variedade de valores
     diferentes, alterar para "not specified" não haveria importância. 
 
 ## *Considerações da análise dos dados*
@@ -73,4 +73,14 @@ Neste repositório, estão sendo feitos tratamento e análise da tabela
    
    Então, quanto mais ocorrências tiver um determinado gênero, a probabilidade 
    da varidade da cor de olho aumentar é relevante.
+   
+3. **Distribuição por origem (Mundos Natais)**
+
+   Percebendo que há uma diferença possivelmente relevante na quantidade de vezes
+   em que os mundos Naboo e Tatooine aparecem comparado a outros mundos, foi feito
+   um gráfico de colunas para análise, o que exemplificou essa diferença.
+   
+   Com base nos resultados obtidos a partir do gráfico, pode-se concluir que a 
+   história de Star Wars se concentra mais nos mundos Naboo e Tatooine do que nos
+   demais mundos.
   
