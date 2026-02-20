@@ -47,3 +47,35 @@ dados %>%
   geom_vline(xintercept=165, linetype="dotted") +
   geom_hline(yintercept=70, linetype="dotted")
 ```
+
+# -- Analisando proporções de gêneros --
+```{r}
+genero = dados %>%
+  group_by(genero) %>%
+  summarise(n = n())
+
+dados %>%
+  filter(genero %in% c("feminine", "masculine")) %>%
+  group_by(genero, cor_olho) %>%
+  summarise(n = n())
+
+genero %>%
+  mutate(genero = case_match(genero,
+                             "masculine" ~ "Masculino",
+                             "feminine" ~ "Feminino",
+                             "not specified" ~ "Não especificado"
+                             ),
+         percent = (n / sum(n)) * 100,
+         p_label = paste0(n, " (", round(percent, 1), "%)")
+         ) %>%
+  ggplot(aes(x = "", y = n, fill = genero)) +
+  geom_bar(stat="identity", width=0.5) +
+  coord_flip() +
+  geom_text(aes(label = p_label), 
+            position = position_stack(vjust = 0.5)) +
+  theme_void() +
+  labs(
+    title = "Proporção dos gêneros",
+    fill = "Gêneros"
+  )
+```
