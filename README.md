@@ -1,7 +1,35 @@
 # *Análise exploratória com dados de Star Wars*
 
-Neste repositório, estão sendo feitos tratamento e análise da tabela
-"starwars", com base nos dados fornecidos pela biblioteca `Tidyverse`. 
+Análise exploratória da tabela "starwars". Com base nos dados fornecidos pela 
+biblioteca `Tidyverse`, foram feitos tratamento e análise. 
+
+   -> Com esta análise, foi possível aplicar limpeza e transformação dos dados com
+   `dplyr` e `tidyr` (Tidyverse) de forma que as informações ficassem claras e de fácil
+   leitura;
+   
+   -> Análises de correlações, frequências e proporções feitas e documentadas de
+   forma precisa e clara para a identificação de padrões e tendências;
+   
+   -> Foram criados gráficos seguindo práticas recomendadas utilizando o `ggplot2`
+   (Tidyverse), como a utilização de cores suaves e agradáveis para os olhos humanos.
+
+## *Stack*
+- R;
+- RMarkdown;
+- Tidyverse;
+- Ggcorrplot.
+
+## *Objetivos*
+
+- Realizar tratamento dos dados "starwars";
+- Analisar os dados limpos e gerar conclusões;
+- Documentar passos, conclusões e considerações.
+
+## *Execução*
+
+- Clonagem do repositório;
+- Executar `scripts/cleaning.Rmd`;
+- Executar `scripts/analysis.Rmd`.
 
 ## *Estrutura*
 
@@ -61,7 +89,12 @@ Neste repositório, estão sendo feitos tratamento e análise da tabela
    gráfico de dispersão que a tendência é real (não obrigatória): quanto maior for o sujeito,
    a massa tende a aumentar da mesma forma.
    
-2. **Diferença significativa na proporção entre gêneros**
+   O responsável pelo outlier é Jabba Desilijic Tiure.
+
+   ![Correlação sem outlier](assets/correl_no_outlier.png)
+   ![Dispersão sem outlier](assets/disp_no_outlier.png)
+   
+2. **Diferença considerável na proporção entre gêneros**
 
    Ao analisar a proporção entre personagens masculinos e femininos, foi notado
    que mais de 75% dos personagens são do gênero masculino, enquanto 19.50%
@@ -74,27 +107,46 @@ Neste repositório, estão sendo feitos tratamento e análise da tabela
    Então, quanto mais ocorrências tiver um determinado gênero, a probabilidade 
    da varidade da cor de olho aumentar é relevante.
    
+   ![Proporção entre gêneros](assets/proporcao_genero.png)
+   
 3. **Distribuição por origem (Mundos Natais)**
 
    Percebendo que há uma diferença possivelmente relevante na quantidade de vezes
    em que os mundos Naboo e Tatooine aparecem comparado a outros mundos, foi feito
    um gráfico de colunas para análise, o que exemplificou essa diferença.
    
-   Com base nos resultados obtidos a partir do gráfico, pode-se concluir que a 
-   história de Star Wars se concentra mais nos mundos Naboo e Tatooine do que nos
-   demais mundos.
+   Com base nos resultados obtidos a partir do gráfico, pode-se concluir que, de
+   acordo com este dataset, os personagens se concentram mais nos mundos Naboo e
+   Tatooine do que nos demais mundos.
+   
+   ![Gráfico de colunas com origens mais frequentes](assets/freq_origem_coluna.png)
 
 4. **Frequência de espécies**
 
    Com o mesmo método utilizado para analisar a distribuição por origem, é notável
-   a diferença entre a frequência de humanos em Star Wars do que qualquer outra
+   a diferença entre a frequência de humanos neste dataset do que qualquer outra
    espécie.
 
    A espécie humana possui 35 ocorrências, 6 vezes mais do que a segunda espécie com
-   mais ocorrências, no caso, Droid. No entanto, é possível concluir que Droids também
-   são relevantes na trama de Star Wars, devido a mesma ter o dobro de ocorrências do
-   terceiro colocado. Porém, o foco principal da obra aparenta ser a espécie humana,
-   com Droids tendo relevância no papel de coadjuvante. 
+   mais ocorrências, no caso, Droid. No entanto, neste dataset, Droids também 
+   são relevantes, devido a mesma ter o dobro de ocorrências do terceiro colocado. 
+   Porém, o foco principal aparenta ser a espécie humana, com Droids tendo relevância 
+   no papel de coadjuvante. 
   
    Também é viável destacar a variedade de espécies de Star Wars, com dezenas de
    espécies diferentes, mesmo com apenas uma ocorrência.
+   
+   ![Frequência de espécies em gráfico de barras](assets/freq_especies_barra.png)
+   
+## Conclusões
+ 
+    -> Pode-se perceber uma correlação entre altura e massa, que tendem
+      a ser diretamente proporcionais;
+      
+    -> O gênero masculino apresenta alta predominância no dataset;
+      
+    -> Naboo e Tatooine são os mundos com maior frequência, com uma distância
+    considerável para o terceiro colocado;
+      
+    -> A espécie humana, com larga distância para as outras espécies, é a
+    espécie mais presente, com a espécie Droid também tendo relevância.

@@ -9,7 +9,6 @@ library(ggcorrplot)
 # -- Carregando os dados tratados --
 ```{r}
 dados = read_csv("../data/clean/starwars_clean.csv")
-View(dados)
 ```
 
 # -- Analisando correlação entre "altura" e "massa" --
@@ -24,28 +23,66 @@ correl_filt = dados %>%
   select(altura, massa) %>%
   cor(use="complete.obs")
 
-ggcorrplot(correl_filt,
-           lab=T,
+correl_no_outlier = ggcorrplot(correl_filt,
+           lab=TRUE,
            lab_size = 3.5)
 
-ggcorrplot(correl,
-           lab=T,
+correl_outlier = ggcorrplot(correl,
+           lab=TRUE,
            lab_size = 3.5)
+
+ggsave(
+  filename = "../assets/correl_no_outlier.png",
+  plot = correl_no_outlier,
+  width = 8,
+  height = 5,
+  dpi = 300
+)
+
+ggsave(
+  filename = "../assets/correl_outlier.png",
+  plot = correl_outlier,
+  width = 8,
+  height = 5,
+  dpi = 300
+)
+
+correl_no_outlier
+correl_outlier
 ```
 
 # -- Confirmando existência de correlação com gráfico de dispersão --
 ```{r}
 
-dados %>%
+disp_outlier = dados %>%
   ggplot(aes(x=altura, y=massa)) +
   geom_point() + geom_smooth(method="lm")
 
-dados %>%
+disp_no_outlier = dados %>%
   filter(massa < 1000) %>%
   ggplot(aes(x=altura, y=massa)) +
   geom_point() + geom_smooth(method="lm") +
   geom_vline(xintercept=165, linetype="dotted") +
   geom_hline(yintercept=70, linetype="dotted")
+
+ggsave(
+  filename = "../assets/disp_outlier.png",
+  plot = disp_outlier,
+  width = 10,
+  height = 5,
+  dpi = 300
+)
+
+ggsave(
+  filename = "../assets/disp_no_outlier.png",
+  plot = disp_no_outlier,
+  width = 10,
+  height = 5,
+  dpi = 300
+)
+
+disp_outlier
+disp_no_outlier
 ```
 
 # -- Analisando proporções de gêneros --
@@ -59,7 +96,7 @@ dados %>%
   group_by(genero, cor_olho) %>%
   summarise(n = n())
 
-genero %>%
+proporcao_genero = genero %>%
   mutate(genero = case_match(genero,
                              "masculine" ~ "Masculino",
                              "feminine" ~ "Feminino",
@@ -78,6 +115,16 @@ genero %>%
     title = "Proporção dos gêneros",
     fill = "Gêneros"
   )
+
+ggsave(
+  filename = "../assets/proporcao_genero.png",
+  plot = proporcao_genero,
+  width = 9,
+  height = 5,
+  dpi = 300
+)
+
+proporcao_genero
 ```
 
 # -- Analisando frequência de mundos natais --
@@ -89,7 +136,7 @@ dados_resumidos = dados %>%
   arrange(desc(n)) %>%
   slice_max(n, n = 8)
 
-dados_resumidos %>%
+freq_origem_coluna = dados_resumidos %>%
   ggplot(aes(x=reorder(mundo_natal, n), y = n, fill=mundo_natal)) +
   geom_bar(stat="identity") +
   scale_fill_manual(values = c(
@@ -101,13 +148,23 @@ dados_resumidos %>%
     "Mirial" = "#FFD5E5",
     "Naboo" = "#E5989B",
     "Ryloth" = "#D4E09B",
-    "Tanooine" = "#DBE3E5"
+    "Tatooine" = "#DBE3E5"
   )) + theme_minimal() + labs(
     title = "Mundo natais com maior frequência",
     x = "Mundo",
     y = "Frequência",
     fill = "Mundos"
   )
+
+ggsave(
+  filename = "../assets/freq_origem_coluna.png",
+  plot = freq_origem_coluna,
+  width = 9,
+  height = 5,
+  dpi = 300
+)
+
+freq_origem_coluna
 ```
 
 # -- Analisando frequência de espécies --
@@ -119,7 +176,7 @@ especies_resumido = dados %>%
   arrange(desc(n)) %>%
   slice_max(n, n = 9, with_ties = F)
 
-especies_resumido %>%
+freq_especies_barra = especies_resumido %>%
   mutate(especie = case_match(especie,
                               "Human" ~ "Humano",
                               .default = especie
@@ -143,4 +200,14 @@ especies_resumido %>%
     "Wookiee"  = "#A04000", 
     "Zabrak"   = "#E67E22"  
   )) + coord_flip()
+
+ggsave(
+  filename = "../assets/freq_especies_barra.png",
+  plot = freq_especies_barra,
+  width = 9,
+  height = 5,
+  dpi = 300
+)
+
+freq_especies_barra
 ```
