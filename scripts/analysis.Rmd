@@ -80,8 +80,7 @@ genero %>%
   )
 ```
 
-
-# -- Analisando ocorrências de mundos natais --
+# -- Analisando frequência de mundos natais --
 ```{r}
 dados_resumidos = dados %>%
   filter(!is.na(mundo_natal)) %>%
@@ -109,4 +108,39 @@ dados_resumidos %>%
     y = "Frequência",
     fill = "Mundos"
   )
+```
+
+# -- Analisando frequência de espécies --
+```{r}
+especies_resumido = dados %>%
+  filter(especie != "not specified") %>%
+  group_by(especie) %>%
+  summarise(n = n()) %>%
+  arrange(desc(n)) %>%
+  slice_max(n, n = 9, with_ties = F)
+
+especies_resumido %>%
+  mutate(especie = case_match(especie,
+                              "Human" ~ "Humano",
+                              .default = especie
+                              )) %>%
+  ggplot(aes(x=reorder(especie, n), y = n, fill=especie)) +
+  geom_bar(stat="identity") +
+  labs(
+    title = "Frequência do número de espécies",
+    x = "Espécies",
+    y = "Frequência",
+    fill = "Espécies"
+  ) +
+  scale_fill_manual(values = c(
+    "Humano"    = "#2C3E50",
+    "Droid"    = "#7F8C8D", 
+    "Aleena"   = "#E74C3C", 
+    "Gungan"   = "#27AE60", 
+    "Kaminoan" = "#3498DB", 
+    "Mirialan" = "#F1C40F", 
+    "Twi'lek"  = "#9B59B6", 
+    "Wookiee"  = "#A04000", 
+    "Zabrak"   = "#E67E22"  
+  )) + coord_flip()
 ```

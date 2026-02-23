@@ -83,4 +83,18 @@ Neste repositório, estão sendo feitos tratamento e análise da tabela
    Com base nos resultados obtidos a partir do gráfico, pode-se concluir que a 
    história de Star Wars se concentra mais nos mundos Naboo e Tatooine do que nos
    demais mundos.
+
+4. **Frequência de espécies**
+
+   Com o mesmo método utilizado para analisar a distribuição por origem, é notável
+   a diferença entre a frequência de humanos em Star Wars do que qualquer outra
+   espécie.
+
+   A espécie humana possui 35 ocorrências, 6 vezes mais do que a segunda espécie com
+   mais ocorrências, no caso, Droid. No entanto, é possível concluir que Droids também
+   são relevantes na trama de Star Wars, devido a mesma ter o dobro de ocorrências do
+   terceiro colocado. Porém, o foco principal da obra aparenta ser a espécie humana,
+   com Droids tendo relevância no papel de coadjuvante. 
   
+   Também é viável destacar a variedade de espécies de Star Wars, com dezenas de
+   espécies diferentes, mesmo com apenas uma ocorrência.
